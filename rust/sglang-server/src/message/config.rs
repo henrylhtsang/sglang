@@ -405,14 +405,14 @@ impl DefaultSamplingParams {
 }
 
 /// The native MM pipeline handoff, built by `RustServer._build_mm_spec` from
-/// the resolved `NativeMmSpec` and passed to `Server.start_mm_workers`. Same
+/// the resolved Python-side `MmSpec` and passed to `Server.start_mm_workers`. Same
 /// contract as [`ServerArgs`]: every field is a required, typed constructor
 /// keyword, so a drifted Python caller fails at boot.
 #[pyo3::pyclass(frozen, from_py_object, module = "sglang.srt.rust_extensions._server")]
 #[derive(Clone, Debug)]
 pub struct MmSpec {
     /// Park feature buffers in POSIX shm rather than inline. Set by the Python
-    /// launcher (`NativeMmHost._use_feature_shm`) exactly when the scheduler
+    /// launcher (`_use_feature_shm`) exactly when the scheduler
     /// broadcasts across TP ranks and will unwrap `ShmPointerMMData`.
     pub feature_shm: bool,
     /// The family pipeline and its resolved processor parameters.

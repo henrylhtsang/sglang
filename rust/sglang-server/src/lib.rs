@@ -35,7 +35,7 @@ fn value_error(context: &str, err: impl std::fmt::Display) -> PyErr {
 }
 
 /// One drained MM result (see [`Server::take_mm`]), consumed by
-/// `RustServer.build_native_mm` to build the scheduler's
+/// `MmSpec.wrap_encoded` to build the scheduler's
 /// `MultimodalProcessorOutput`.
 #[pyclass(frozen, get_all)]
 struct MmEncodedResult {
@@ -201,7 +201,7 @@ impl Server {
     }
 
     /// Spawn the MM worker pool for the pipeline in `spec` (built from the
-    /// resolved processor config; see `NativeMmHost.resolve_native_spec` and
+    /// resolved processor config; see `resolve_mm_spec` and
     /// `RustServer._build_mm_spec`). Image-only requests are processed entirely
     /// in Rust and parked for [`Server::take_mm`]; anything the pipeline cannot
     /// serve is rejected back to the client — there is no Python fallback.
